@@ -1,0 +1,30 @@
+File/LibMagic version 0.01
+==========================
+
+DESCRIPTION
+
+Interface to libmagic (from the file-4.x package from Christos Zoulas,
+ftp://ftp.astron.com/pub/file/)
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+DEPENDENCIES/PREREQUISITES
+
+This module requires these other modules and libraries:
+
+  file-4.x and the associated libmagic (ftp://ftp.astron.com/pub/file/)
+
+COPYRIGHT AND LICENCE
+
+Author: Andreas Fitzner, March 2004
+
+This library is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
+

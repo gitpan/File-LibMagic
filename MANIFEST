@@ -1,0 +1,9 @@
+Changes
+LibMagic.pm
+LibMagic.xs
+Makefile.PL
+MANIFEST
+README
+const-c.inc
+const-xs.inc
+t/1.t
