@@ -30,7 +30,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = qw( );
 
-our $VERSION = '0.10';
+our $VERSION = '0.80';
 
 sub AUTOLOAD {
     # This AUTOLOAD is used to 'autoload' constants from the constant()
@@ -113,6 +113,21 @@ None by default.
 =head1 BUGS
 
 I'm still learning perlxs ...
+
+=over 1
+
+=item still no real error handling (printf is not enough)
+
+=item magic_load is not implemented yet
+
+=back
+
+=head1 HISTORY
+
+April 2004 initial Release
+
+July 2004 version 0.80
+Thanks to James Olin Oden (joden@lee.k12.nc.us) for his help.
 
 =head1 AUTHOR
 

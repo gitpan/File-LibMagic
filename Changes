@@ -1,5 +1,10 @@
 Revision history for Perl extension File::LibMagic.
 
+0.80  July 2004
+      some improvements in colaboration with James Olin Oden <joden@lee.k12.nc.us> 
+
+0.10  Apr 2004
+
 0.03  Tue Mar 23 20:19:23 CET 2004
 	
 	hacked magic_open & magic_load but it's not mature enough
