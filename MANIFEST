@@ -7,3 +7,7 @@ README
 const-c.inc
 const-xs.inc
 t/1.t
+example/a.pl
+example/b.pl
+example/a.c
+example/Makefile
