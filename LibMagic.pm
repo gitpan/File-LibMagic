@@ -17,18 +17,20 @@ our @ISA = qw(Exporter);
 # This allows declaration	use File::LibMagic ':all';
 # If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
 # will save memory.
-our %EXPORT_TAGS = ( 'all' => [ qw(
-	magic_buffer magic_file
-	magic_open magic_load magic_close mb
-) ] );
+our %EXPORT_TAGS = ( 'easy'     => [ qw( MagicBuffer MagicFile ) ],
+		     'complete' => [ qw(magic_buffer magic_file magic_open magic_load magic_close) ]
+);
+# doesn't work: hm
+# $EXPORT_TAGS{"all"}=[ @$EXPORT_TAGS{"easy"}, @$EXPORT_TAGS{"complete"} ];
+
+    $EXPORT_TAGS{"all"}=[ qw( MagicBuffer MagicFile ),
+                          qw(magic_buffer magic_file magic_open magic_load magic_close) ];
 
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
-our @EXPORT = qw(
-	
-);
+our @EXPORT = qw( );
 
-our $VERSION = '0.03';
+our $VERSION = '0.10';
 
 sub AUTOLOAD {
     # This AUTOLOAD is used to 'autoload' constants from the constant()
@@ -69,14 +71,30 @@ File::LibMagic - Perlwrapper for libmagic
 
 =head1 SYNOPSIS
 
-  use File::LibMagic qw/magic_buffer magic_file/;
+The easy way:
 
-  print magic_buffer("Hello World\n"),"\n";
-  # returns "ASCII text"
+	  use File::LibMagic ':easy';
 
-  print magic_file("/bin/ls"),"\n";
-  # returns "ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV)"
-  # on my system
+	  print MagicBuffer("Hello World\n"),"\n";
+	  # returns "ASCII text"
+
+	  print MagicFile("/bin/ls"),"\n";
+	  # returns "ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV)"
+	  # on my system
+
+To use all capabilities of libmagic use
+ 
+	  use File::LibMagic ':complete';
+
+	  my $handle=magic_open(0);
+	  my $ret   =magic_load($handle,"");
+
+	  print magic_buffer($handle,"Hello World\n"),"\n";
+	  print magic_file($handle,"/bin/ls"),"\n";
+
+	  magic_close($handle);
+
+Please have a look at the files in the example-directory.
 
 =head1 ABSTRACT
 
@@ -91,6 +109,10 @@ the file-4.x package from Christos Zoulas (ftp://ftp.astron.com/pub/file/).
 =head2 EXPORT
 
 None by default.
+
+=head1 BUGS
+
+I'm still learning perlxs ...
 
 =head1 AUTHOR
 

@@ -16,7 +16,8 @@ INCLUDE: const-xs.inc
 
 PROTOTYPES: ENABLE
 
-SV * magic_buffer(buffer)
+# Fist the two :easy functions
+SV * MagicBuffer(buffer)
        SV * buffer
        PREINIT:
          char * ret;
@@ -32,7 +33,7 @@ SV * magic_buffer(buffer)
        OUTPUT:
           RETVAL
 
-SV * magic_file(buffer)
+SV * MagicFile(buffer)
        SV * buffer
        PREINIT:
          char * ret;
@@ -48,6 +49,7 @@ SV * magic_file(buffer)
        OUTPUT:
           RETVAL
 
+# now all :complete functions
 IV   magic_open(flags)
        int flags
        PREINIT:
@@ -80,8 +82,7 @@ IV   magic_load(handle,dbnames)
 	OUTPUT:
 		RETVAL
 
-
-SV * mb(handle,buffer)
+SV * magic_buffer(handle,buffer)
 	int handle
 	SV * buffer
 	PREINIT:
@@ -89,10 +90,25 @@ SV * mb(handle,buffer)
 		char * ret;
 		int len;
 	CODE:
-		m=(magic_t) handle;
-           	len=SvCUR(buffer);
-		ret=(char*) magic_buffer(m,SvPV(buffer,len),len);
-           	RETVAL = newSVpvn(ret, strlen(ret));
+	    m=(magic_t) handle;
+            len=SvCUR(buffer);
+	    ret=(char*) magic_buffer(m,SvPV(buffer,len),len);
+            RETVAL = newSVpvn(ret, strlen(ret));
 	OUTPUT:
 		RETVAL
+
+SV * magic_file(handle,buffer)
+       int handle
+       SV * buffer
+       PREINIT:
+         char * ret;
+         int len,ret_i;
+         magic_t m;
+       CODE:
+	   m=(magic_t) handle;
+           len=SvCUR(buffer);
+           ret=(char*) magic_file(m,SvPV(buffer,len));
+           RETVAL = newSVpvn(ret, strlen(ret));
+       OUTPUT:
+          RETVAL
 
