@@ -1,5 +1,8 @@
 Revision history for Perl extension File::LibMagic.
 
+0.82  April 2005
+      Found two bugs
+
 0.81  April 2005
       Port to AMD-64, thanks to Nathan Hawkins <utsl@quic.net>
 

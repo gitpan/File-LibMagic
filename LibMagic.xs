@@ -21,7 +21,7 @@ SV * MagicBuffer(buffer)
        SV * buffer
        PREINIT:
          char * ret;
-         int len,ret_i;
+         int len, ret_i;
          magic_t m;
        CODE:
 	   /* First make sure they actually gave us a defined scalar */
@@ -33,11 +33,11 @@ SV * MagicBuffer(buffer)
 		   ret_i=magic_load(m,NULL);   if (ret_i<0) { printf("Error at load\n"); }
 		   len=SvCUR(buffer);
 		   ret=(char*) magic_buffer(m,SvPV(buffer,len),len);
-		   /* Debug
-		   	printf("Habe |%s| und ret |%s|\n",SvPV(buffer,len), ret);
+		   /* Debug 
+		   	printf("Habe |%s| und ret |%s|,%d\n",SvPV(buffer,len), ret, strlen(ret));
 		   */
-		   magic_close(m);
 		   RETVAL = newSVpvn(ret, strlen(ret));
+		   magic_close(m);
 	   }
        OUTPUT:
            RETVAL
@@ -46,7 +46,7 @@ SV * MagicFile(buffer)
        SV * buffer
        PREINIT:
          char * ret;
-         int len,ret_i;
+         int len, ret_i;
          magic_t m;
        CODE:
 	   /* First make sure they actually gave us a defined scalar */
@@ -58,8 +58,8 @@ SV * MagicFile(buffer)
 		   ret_i=magic_load(m,NULL);   if (ret_i<0) { printf("Error at load\n"); }
 		   len=SvCUR(buffer);
 		   ret=(char*) magic_file(m,SvPV(buffer,len));
-		   magic_close(m);
 		   RETVAL = newSVpvn(ret, strlen(ret));
+		   magic_close(m);
 	   }
        OUTPUT:
            RETVAL
