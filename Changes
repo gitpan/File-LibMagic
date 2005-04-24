@@ -1,16 +1,18 @@
 Revision history for Perl extension File::LibMagic.
 
+0.81  April 2005
+      Port to AMD-64, thanks to Nathan Hawkins <utsl@quic.net>
+
 0.80  July 2004
       some improvements in colaboration with James Olin Oden <joden@lee.k12.nc.us> 
 
 0.10  Apr 2004
+      some cleanup
 
 0.03  Tue Mar 23 20:19:23 CET 2004
-	
-	hacked magic_open & magic_load but it's not mature enough
+      hacked magic_open & magic_load but it's not mature enough
 
 0.02  Tue Mar 23 15:23:17 CET 2004
-      
       magic_file implemented
 
 0.01  Mon Mar 15 22:52:03 2004

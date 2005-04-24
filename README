@@ -1,4 +1,4 @@
-File/LibMagic version 0.03
+File/LibMagic version 0.81
 ==========================
 
 DESCRIPTION
@@ -23,7 +23,7 @@ This module requires these other modules and libraries:
 
 COPYRIGHT AND LICENCE
 
-Author: Andreas Fitzner <fitzner@informatik.hu-berlin.de>, March 2004
+Author: Andreas Fitzner <fitzner@informatik.hu-berlin.de>, April 2005
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.

@@ -4,10 +4,13 @@ LibMagic.xs
 Makefile.PL
 MANIFEST
 README
+README.64-bit
 const-c.inc
 const-xs.inc
 t/1.t
+example/Makefile
 example/a.pl
 example/b.pl
-example/a.c
-example/Makefile
+example/t2.pl
+example/test-libmagic.c
+example/pointersize.c

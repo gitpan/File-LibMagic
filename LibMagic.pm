@@ -30,7 +30,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = qw( );
 
-our $VERSION = '0.80';
+our $VERSION = '0.81';
 
 sub AUTOLOAD {
     # This AUTOLOAD is used to 'autoload' constants from the constant()
@@ -126,8 +126,11 @@ I'm still learning perlxs ...
 
 April 2004 initial Release
 
-July 2004 version 0.80
+April 2005 version 0.81
+
 Thanks to James Olin Oden (joden@lee.k12.nc.us) for his help.
+Thanks to Nathan Hawkins <utsl@quic.net> for his port to 64-bit
+systems.
 
 =head1 AUTHOR
 
@@ -135,7 +138,7 @@ Andreas Fitzner E<lt>fitzner@informatik.hu-berlin.deE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2004 by Andreas Fitzner
+Copyright 2005 by Andreas Fitzner
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 

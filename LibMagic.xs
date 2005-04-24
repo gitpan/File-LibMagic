@@ -7,7 +7,7 @@
 
 #include "const-c.inc"
 
-/* I don't know anything about perlxs, just trying by best. ;(
+/* I don't know anything about perlxs, just trying my best. ;)
 */
 
 MODULE = File::LibMagic		PACKAGE = File::LibMagic		
@@ -33,11 +33,14 @@ SV * MagicBuffer(buffer)
 		   ret_i=magic_load(m,NULL);   if (ret_i<0) { printf("Error at load\n"); }
 		   len=SvCUR(buffer);
 		   ret=(char*) magic_buffer(m,SvPV(buffer,len),len);
+		   /* Debug
+		   	printf("Habe |%s| und ret |%s|\n",SvPV(buffer,len), ret);
+		   */
 		   magic_close(m);
 		   RETVAL = newSVpvn(ret, strlen(ret));
 	   }
        OUTPUT:
-          RETVAL
+           RETVAL
 
 SV * MagicFile(buffer)
        SV * buffer
@@ -59,7 +62,7 @@ SV * MagicFile(buffer)
 		   RETVAL = newSVpvn(ret, strlen(ret));
 	   }
        OUTPUT:
-          RETVAL
+           RETVAL
 
 # now all :complete functions
 IV   magic_open(flags)
@@ -68,12 +71,12 @@ IV   magic_open(flags)
        	    magic_t m;
        CODE:
              m=magic_open(flags);
-	     RETVAL=(int) m;
+	     RETVAL=(long) m;
        OUTPUT:
        	     RETVAL
 
 void magic_close(handle) 
-	int handle
+	long handle
 	PREINIT:
 		magic_t m;
 	CODE:
@@ -82,11 +85,11 @@ void magic_close(handle)
 		magic_close(m);
 
 IV   magic_load(handle,dbnames)
-	int handle
+	long handle
 	SV * dbnames
 	PREINIT:
 		magic_t m;
-		int ret;
+		long ret;
 	CODE:
 		// FIXME what if handle is invalid
 		m=(magic_t) handle;
@@ -100,7 +103,7 @@ IV   magic_load(handle,dbnames)
 		RETVAL
 
 SV * magic_buffer(handle,buffer)
-	int handle
+	long handle
 	SV * buffer
 	PREINIT:
 		magic_t m;
@@ -122,11 +125,11 @@ SV * magic_buffer(handle,buffer)
 		RETVAL
 
 SV * magic_file(handle,buffer)
-       int handle
+       long handle
        SV * buffer
        PREINIT:
          char * ret;
-         int len,ret_i;
+         int len;
          magic_t m;
        CODE:
 	   /* First make sure they actually gave us a defined scalar */
