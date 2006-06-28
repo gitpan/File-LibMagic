@@ -1,5 +1,6 @@
 test-libmagic: test-libmagic.c
-	gcc $< -o $@ -Wall -lmagic
+	gcc $< -o $@ -Wall -L. -lmagic
+
 pointersize:	pointersize.c
 	gcc $< -o $@ -Wall -lmagic
 

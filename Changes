@@ -1,5 +1,12 @@
 Revision history for Perl extension File::LibMagic.
 
+0.84  June 2006
+      (all implemented by Michael Hendricks)
+      some XS-Code cleanup,
+      import of constants like MAGIC_NONE from magic.h,
+      much improved error handling.
+      additional OO-Interface
+
 0.83  June 2006
       Small documentation update
 

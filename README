@@ -1,4 +1,4 @@
-File/LibMagic version 0.83
+File/LibMagic version 0.84
 ==========================
 
 DESCRIPTION
@@ -41,7 +41,9 @@ to the file-4.x package.
 
 COPYRIGHT AND LICENCE
 
-Author: Andreas Fitzner <fitzner@informatik.hu-berlin.de>, June 2006
+Author: Andreas Fitzner <fitzner@informatik.hu-berlin.de>, 
+        Michael Hendricks <michael@ndrix.org>
+June 2006
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.

@@ -23,7 +23,11 @@ if  (eval {require ExtUtils::Constant; 1}) {
   # you will need to use the generated const-c.inc and const-xs.inc
   # files to replace their "fallback" counterparts before distributing your
   # changes.
-  my @names = (qw());
+
+  my @names = (qw(MAGIC_CHECK MAGIC_COMPRESS MAGIC_CONTINUE MAGIC_DEBUG
+               MAGIC_DEVICES MAGIC_ERROR MAGIC_MIME MAGIC_NONE
+               MAGIC_PRESERVE_ATIME MAGIC_RAW MAGIC_SYMLINK));
+
   ExtUtils::Constant::WriteConstants(
                                      NAME         => 'File::LibMagic',
                                      NAMES        => \@names,
@@ -42,29 +46,31 @@ else {
   }
 }
 
-open(TestFile,">test-if-libmagic-exists.c") || die "$|";
-print TestFile <<EOT;
-#include <magic.h>
+# Michael does not like this test.
 
-int main(void) {
-	magic_t m;
-
-	m=magic_open(MAGIC_NONE);
-
-	return 0;
-}
-EOT
-
- my $exe = "test-if-libmagic-exists$Config{exe_ext}";
- $cc_cmd .= "$Config{cc} $Config{ccflags} -I$Config{archlibexp}/CORE -o $exe";
- my $rc = system("$cc_cmd $Config{ldflags} test-if-libmagic-exists.c -lmagic $Config{libs}");
-
- unlink("test-if-libmagic-exists.c", $exe, "test-if-libmagic-exists$Config{obj_ext}");
-
- if ($rc) {
-        warn "Can't compile test program. Make sure you have the file-4.x package installed\n",
-              "and libmagic is accessable (use ldconfig).\n";
-        exit 1; # exit with error to the shell
-  }
+#open(TestFile,">test-if-libmagic-exists.c") || die "$|";
+#print TestFile <<EOT;
+##include <magic.h>
+#
+#int main(void) {
+#	magic_t m;
+#
+#	m=magic_open(MAGIC_NONE);
+#
+#	return 0;
+#}
+#EOT
+#
+# my $exe = "test-if-libmagic-exists$Config{exe_ext}";
+# $cc_cmd .= "$Config{cc} $Config{ccflags} -I$Config{archlibexp}/CORE -o $exe";
+# my $rc = system("$cc_cmd $Config{ldflags} test-if-libmagic-exists.c -lmagic $Config{libs}");
+#
+# unlink("test-if-libmagic-exists.c", $exe, "test-if-libmagic-exists$Config{obj_ext}");
+#
+# if ($rc) {
+#        warn "Can't compile test program. Make sure you have the file-4.x package installed\n",
+#              "and libmagic is accessable (use ldconfig).\n";
+#        exit 1; # exit with error to the shell
+#  }
 
 exit 0;
