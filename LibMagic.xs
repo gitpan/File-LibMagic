@@ -70,8 +70,8 @@ SV * MagicFile(buffer)
          if ( ret_i < 0 ) {
              Perl_croak(aTHX_ "libmagic %s", magic_error(m));
          }
-		 buffer_value = SvPV_nolen(buffer);
-		 ret=(char*) magic_file(m,buffer_value);
+	 buffer_value = SvPV_nolen(buffer);
+	 ret=(char*) magic_file(m,buffer_value);
          if ( ret == NULL ) {
              Perl_croak(aTHX_ "libmagic %s", magic_error(m));
          }
