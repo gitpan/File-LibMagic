@@ -1,5 +1,8 @@
 Revision history for Perl extension File::LibMagic.
 
+0.88  May 2008
+      more experiments
+
 0.87  May 2008
       experimenting with magic_buffer_offset
 

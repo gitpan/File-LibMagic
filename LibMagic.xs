@@ -112,6 +112,7 @@ IV   magic_load(handle,dbnames)
 		magic_t m;
 		STRLEN len = 0;
 		char * dbnames_value;
+		int ret;
 	CODE:
         if ( !handle ) {
             Perl_croak( aTHX_ "magic_load requires a defined handle" );
@@ -123,7 +124,9 @@ IV   magic_load(handle,dbnames)
 		/* FIXME 
 		 * manpage says 0 = success, any other failure 
 		 * thus does the following line correctly reflect this? */
-		RETVAL = ! magic_load(m, len > 0 ? dbnames_value : NULL);
+		ret=magic_load(m, len > 0 ? dbnames_value : NULL);
+		printf("Ret %d, \"%s\"\n",ret,dbnames_value);
+		RETVAL = ! ret;
         if ( RETVAL < 0 ) {
             Perl_croak( aTHX_ "libmagic %s", magic_error(m) );
         }
@@ -159,29 +162,22 @@ SV * magic_buffer(handle,buffer)
 
 SV * magic_buffer_offset(handle,buffer,offset,BuffLen)
 	long handle
-	SV * buffer
+	char * buffer
 	long offset
 	long BuffLen
 	PREINIT:
 		magic_t m;
 		char * ret;
 		STRLEN len;
-		char * buffer_value;
 		long MyLen;
 	CODE:
         if ( !handle ) {
             Perl_croak( aTHX_ "magic_buffer requires a defined handle" );
         }
-        /* First make sure they actually gave us a defined scalar */
-        if ( !SvOK(buffer) ) {
-            Perl_croak(aTHX_ "magic_buffer requires defined content");
-        }
-
-		m = (magic_t) handle;
-        buffer_value = SvPV(buffer, len);
+	m = (magic_t) handle;
 	/* FIXME check length for out of bound errors */
 	MyLen= (long) BuffLen;
-        ret = (char*) magic_buffer(m, (char *) &buffer_value[ (long) offset],MyLen);
+        ret = (char*) magic_buffer(m, (char *) &buffer[ (long) offset], MyLen);
         if ( ret == NULL ) {
             Perl_croak(aTHX_ "libmagic %s", magic_error(m));
         }
