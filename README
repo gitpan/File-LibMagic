@@ -1,4 +1,4 @@
-lile/LibMagic version 0.85
+lile/LibMagic version 0.86
 ==========================
 
 DESCRIPTION
@@ -43,7 +43,7 @@ COPYRIGHT AND LICENCE
 
 Author: Andreas Fitzner <fitzner@informatik.hu-berlin.de>, 
         Michael Hendricks <michael@ndrix.org>
-June 2006
+May 2008
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.

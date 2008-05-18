@@ -1,5 +1,11 @@
 Revision history for Perl extension File::LibMagic.
 
+0.86  May 2008
+      'file' version 4.24 returns slightly different filetypes.
+      this makes 'make test' fail. fixed it for the new 
+      version. But I'm afraid this breaks the 'make test' for
+      older versions of the package 'file'.
+
 0.85  June 2006
       Minor cleanup of the MANIFEST to avoid warnings (Michael Hendricks)
 
