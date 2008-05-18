@@ -1,5 +1,8 @@
 Revision history for Perl extension File::LibMagic.
 
+0.87  May 2008
+      experimenting with magic_buffer_offset
+
 0.86  May 2008
       'file' version 4.24 returns slightly different filetypes.
       this makes 'make test' fail. fixed it for the new 

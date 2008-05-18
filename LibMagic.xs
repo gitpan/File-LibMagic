@@ -120,7 +120,10 @@ IV   magic_load(handle,dbnames)
 		if ( SvOK(dbnames) ) {  // is dbnames defined?
 		    dbnames_value = SvPV(dbnames, len);
 		}
-		RETVAL = magic_load(m, len > 0 ? dbnames_value : NULL);
+		/* FIXME 
+		 * manpage says 0 = success, any other failure 
+		 * thus does the following line correctly reflect this? */
+		RETVAL = ! magic_load(m, len > 0 ? dbnames_value : NULL);
         if ( RETVAL < 0 ) {
             Perl_croak( aTHX_ "libmagic %s", magic_error(m) );
         }
@@ -147,6 +150,38 @@ SV * magic_buffer(handle,buffer)
 		m = (magic_t) handle;
         buffer_value = SvPV(buffer, len);
         ret = (char*) magic_buffer(m,buffer_value,len);
+        if ( ret == NULL ) {
+            Perl_croak(aTHX_ "libmagic %s", magic_error(m));
+        }
+        RETVAL = newSVpvn(ret, strlen(ret));
+	OUTPUT:
+		RETVAL
+
+SV * magic_buffer_offset(handle,buffer,offset,BuffLen)
+	long handle
+	SV * buffer
+	long offset
+	long BuffLen
+	PREINIT:
+		magic_t m;
+		char * ret;
+		STRLEN len;
+		char * buffer_value;
+		long MyLen;
+	CODE:
+        if ( !handle ) {
+            Perl_croak( aTHX_ "magic_buffer requires a defined handle" );
+        }
+        /* First make sure they actually gave us a defined scalar */
+        if ( !SvOK(buffer) ) {
+            Perl_croak(aTHX_ "magic_buffer requires defined content");
+        }
+
+		m = (magic_t) handle;
+        buffer_value = SvPV(buffer, len);
+	/* FIXME check length for out of bound errors */
+	MyLen= (long) BuffLen;
+        ret = (char*) magic_buffer(m, (char *) &buffer_value[ (long) offset],MyLen);
         if ( ret == NULL ) {
             Perl_croak(aTHX_ "libmagic %s", magic_error(m));
         }
