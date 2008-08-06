@@ -12,7 +12,7 @@ WriteMakefile(
     'PREREQ_PM'		=> {}, # e.g., Module::Name => 1.1
     'ABSTRACT_FROM'     => 'LibMagic.pm', # retrieve abstract from module
     'AUTHOR'            => 'Andreas Fitzner <fitzner@informatik.hu-berlin.de>',
-    'LIBS'		=> ['-lmagic'], # e.g., '-lm'
+    'LIBS'		=> ['-lmagic -lz'], # e.g., '-lm'
     'DEFINE'		=> '', # e.g., '-DHAVE_SOMETHING'
     'INC'		=> '-I.', # e.g., '-I. -I/usr/include/other'
 	# Un-comment this if you add C files to link with later:
