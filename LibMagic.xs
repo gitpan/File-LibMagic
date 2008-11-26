@@ -125,7 +125,9 @@ IV   magic_load(handle,dbnames)
 		 * manpage says 0 = success, any other failure 
 		 * thus does the following line correctly reflect this? */
 		ret=magic_load(m, len > 0 ? dbnames_value : NULL);
-		printf("Ret %d, \"%s\"\n",ret,dbnames_value);
+		/*
+		 * printf("Ret %d, \"%s\"\n",ret,dbnames_value);
+		 */
 		RETVAL = ! ret;
         if ( RETVAL < 0 ) {
             Perl_croak( aTHX_ "libmagic %s", magic_error(m) );

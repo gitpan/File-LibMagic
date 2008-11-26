@@ -1,5 +1,9 @@
 Revision history for Perl extension File::LibMagic.
 
+0.90
+      Nov 2008
+      removed some debugging code I accidently left in
+
 0.89
       Aug 2008
       added -lz to Makefile.PL in order to compile under 
