@@ -1,5 +1,10 @@
 Revision history for Perl extension File::LibMagic.
 
+0.91
+      Feb 2009
+
+      Changed t/6-oo.t in order to pass 'make test' for file-5.x
+
 0.90
       Nov 2008
       removed some debugging code I accidently left in

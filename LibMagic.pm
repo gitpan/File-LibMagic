@@ -10,7 +10,8 @@ use AutoLoader;
 
 our @ISA = qw(Exporter);
 
-# This allows declaration	use File::LibMagic ':all';
+# This allows declaration
+#              use File::LibMagic ':all';
 # If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
 # will save memory.
 our %EXPORT_TAGS = ( 'easy'     => [ qw( MagicBuffer MagicFile ) ],
@@ -29,7 +30,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = qw( );
 
-our $VERSION = '0.90';
+our $VERSION = '0.91';
 
 sub AUTOLOAD {
     # This AUTOLOAD is used to 'autoload' constants from the constant()
@@ -115,7 +116,7 @@ __END__
 
 =head1 NAME
 
-File::LibMagic - Perlwrapper for libmagic
+File::LibMagic - Perlwrapper for libmagic (file-4.x or file-5.x)
 
 =head1 SYNOPSIS
 
@@ -143,7 +144,7 @@ To use all capabilities of libmagic use
 
 	  magic_close($handle);
 
-To use the object-oriented interface:
+Using the object-oriented interface:
 
     use File::LibMagic;
     
@@ -162,12 +163,12 @@ Please have a look at the files in the example-directory.
 =head1 ABSTRACT
 
 The C<File::LibMagic> is a simple perl interface to libmagic from
-the file-4.x package from Christos Zoulas (ftp://ftp.astron.com/pub/file/)
+the file-4.x or file-5.x package from Christos Zoulas (ftp://ftp.astron.com/pub/file/).
 
 =head1 DESCRIPTION
 
 The C<File::LibMagic> is a simple perlinterface to libmagic from
-the file-4.x package from Christos Zoulas (ftp://ftp.astron.com/pub/file/).
+the file-4.x or file-5.x package from Christos Zoulas (ftp://ftp.astron.com/pub/file/).
 
 =head2 new
 
@@ -252,6 +253,33 @@ I'm still learning perlxs ...
 
 =back
 
+=head1 DEPENDENCIES/PREREQUISITES
+
+This module requires these other modules and libraries:
+
+  o) file-4.x or file-5x and the associated libmagic 
+        (ftp://ftp.astron.com/pub/file/)
+  o) on some systems zlib is required.
+
+=head1 RELATED MODULES
+
+I created File::LibMagic because I wanted to use libmagic (from file-4.x) and 
+the otherwise great Module File::MMagic only works with file-3.x. In file-3.x 
+exists no libmagic but an ascii file (/etc/magic) in which all data (magic
+numbers, etc.) is included. File::MMagic parsed this ascii file at each request
+and is thus releativly slow. Also it can not use the new data from file-4.x
+or file-5.x.
+
+File::MimeInfo::Magic uses the magic file from freedesktop which is encoded 
+completely in XML, and thus not the fastest approach (
+  http://mail.gnome.org/archives/nautilus-list/2003-December/msg00260.html
+).
+
+File::Type uses a relativly small magic file, which is directly hacked into
+the module code. Thus it is quite fast. It is also mod_perl save.
+It may be the right choice for you, but the databasis is quite small relative
+to the file-package.
+
 =head1 HISTORY
 
 April 2004 initial Release
@@ -265,6 +293,8 @@ systems.
 June 2006 version 0.8x (x>1)
 Michael Hendricks started to put a lot of work into File::LibMagic.
 
+Febuary 2009 latest relase.
+
 =head1 AUTHOR
 
 Andreas Fitzner E<lt>fitzner@informatik.hu-berlin.deE<gt>,
@@ -272,7 +302,7 @@ Michael Hendricks E<lt>michael@ndrix.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2005 by Andreas Fitzner
+Copyright 200[5-9] by Andreas Fitzner, Michael Hendricks
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
