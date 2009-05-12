@@ -4,14 +4,17 @@ use 5.008;
 use ExtUtils::MakeMaker;
 use Config qw/%Config/;
 
-# See lib/ExtUtils/MakeMaker.pm for details of how to influence
-# the contents of the Makefile that is written.
+use lib qw(inc);
+use Devel::CheckLib;
+
+check_lib_or_exit( lib => 'magic', header => 'magic.h' );
+
 WriteMakefile(
     'NAME'		=> 'File::LibMagic',
     'VERSION_FROM'	=> 'LibMagic.pm', # finds $VERSION
-    'PREREQ_PM'		=> {}, # e.g., Module::Name => 1.1
+    'PREREQ_PM'		=> { },
     'ABSTRACT_FROM'     => 'LibMagic.pm', # retrieve abstract from module
-    'AUTHOR'            => 'Andreas Fitzner <fitzner@informatik.hu-berlin.de>',
+    'AUTHOR'            => 'Andreas Fitzner <andreas.fitzner@fv-berlin.de>',
     'LIBS'		=> ['-lmagic -lz'], # e.g., '-lm'
     'DEFINE'		=> '', # e.g., '-DHAVE_SOMETHING'
     'INC'		=> '-I.', # e.g., '-I. -I/usr/include/other'

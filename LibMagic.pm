@@ -30,7 +30,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = qw( );
 
-our $VERSION = '0.92';
+our $VERSION = '0.93';
 
 sub AUTOLOAD {
     # This AUTOLOAD is used to 'autoload' constants from the constant()
@@ -267,7 +267,13 @@ is thrown.
 
 =over 1
 
-=item "normalisation"-problem, fixme
+=item "normalisation"-problem:
+
+The results from libmagic are dependend on the (linux) distribution being used.
+A Gentoo-Linux might return "text/plain; charset=us-asci", an OpenSUSE 
+"text/plain charset=us-asci" (no semicolon!). Please check this if you run 
+your project on a different platform (and send me an mail if you see different 
+outputs/return-values).
 
 =item I'm still learning perlxs ...
 
