@@ -1,5 +1,10 @@
 Revision history for Perl extension File::LibMagic.
 
+0.92 
+      May 2009
+
+      "normalisation"-problem -> changed t/6-oo.t
+
 0.91
       Feb 2009
 

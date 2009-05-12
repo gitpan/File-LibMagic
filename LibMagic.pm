@@ -30,7 +30,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = qw( );
 
-our $VERSION = '0.91';
+our $VERSION = '0.92';
 
 sub AUTOLOAD {
     # This AUTOLOAD is used to 'autoload' constants from the constant()
@@ -170,7 +170,27 @@ the file-4.x or file-5.x package from Christos Zoulas (ftp://ftp.astron.com/pub/
 The C<File::LibMagic> is a simple perlinterface to libmagic from
 the file-4.x or file-5.x package from Christos Zoulas (ftp://ftp.astron.com/pub/file/).
 
-=head2 new
+You can use the simple Interface like MagicBuffer() or MagicFile(), use the
+functions of libmagic(3) or use the OO-Interface.
+
+=head2 Simple Interface
+
+=head3 MagicBuffer() 
+
+fixme
+
+=head3 MagicFile()
+
+fixme
+
+=head2 libmagic(3)
+
+magic_open, magic_close, magic_error, magic_file, magic_buffer, magic_setflags, magic_check, magic_compile,
+magic_load -- Magic number recognition library
+
+=head2 OO-Interface
+
+=head3 new
 
 Create a new File::LibMagic object to use for determining the type or MIME
 type of content.
@@ -184,20 +204,20 @@ the magic database happens only once, during object creation.
 Each File::LibMagic object loads the magic database independently of other
 File::LibMagic objects.
 
-=head2 checktype_contents
+=head3 checktype_contents
 
 Returns the MIME type of the data given as the first argument.
 
-=head2 checktype_filename
+=head3 checktype_filename
 
 Returns the MIME type of the given file.  This will be the same as returned by
 the C<file -i> command.
 
-=head2 describe_contents
+=head3 describe_contents
 
 Returns a description of the data given as the first argument.
 
-=head2 describe_filename
+=head3 describe_filename
 
 Returns the MIME type of the given file.  This will be the same as returned by
 the C<file> command.
@@ -245,9 +265,11 @@ is thrown.
 
 =head1 BUGS
 
-I'm still learning perlxs ...
-
 =over 1
+
+=item "normalisation"-problem, fixme
+
+=item I'm still learning perlxs ...
 
 =item still no real error handling (printf is not enough)
 
@@ -293,7 +315,7 @@ systems.
 June 2006 version 0.8x (x>1)
 Michael Hendricks started to put a lot of work into File::LibMagic.
 
-Febuary 2009 latest relase.
+May 2009 latest relase.
 
 =head1 AUTHOR
 
@@ -308,3 +330,4 @@ This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
 
 =cut
+

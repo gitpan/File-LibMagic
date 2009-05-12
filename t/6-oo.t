@@ -24,8 +24,9 @@ while ( my ($file, $expect) = each %standard ) {
     my ($descr, $mime) = @$expect;
     $file = "t/samples/$file";
 
-    is( $flm->checktype_filename($file), $mime,  "MIME $file"     );
-    is( $flm->describe_filename($file),  $descr, "Describe $file" );
+    $mime=~s/;/;?/g;
+    like( $flm->checktype_filename($file), qr#$mime#,  "MIME $file"     );
+    is  ( $flm->describe_filename($file),  $descr, "Describe $file" );
 
     my $data = do {
         local $/;
@@ -33,8 +34,8 @@ while ( my ($file, $expect) = each %standard ) {
         <$fh>;
     };
 
-    is( $flm->checktype_contents($data), $mime,  "MIME data $file"     );
-    is( $flm->describe_contents($data),  $descr, "Describe data $file" );
+    like( $flm->checktype_contents($data), qr#$mime#,  "MIME data $file"     );
+    is  ( $flm->describe_contents($data),  $descr, "Describe data $file" );
 }
 
 # try using a custom magic database
