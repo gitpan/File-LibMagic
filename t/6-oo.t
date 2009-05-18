@@ -24,6 +24,8 @@ while ( my ($file, $expect) = each %standard ) {
     my ($descr, $mime) = @$expect;
     $file = "t/samples/$file";
 
+    # the original file utility uses text/plain;...  so does gentoo, debian,
+    # etc ..., but OpenSUSE returns text/plain... (no semicolon)
     $mime=~s/;/;?/g;
     like( $flm->checktype_filename($file), qr#$mime#,  "MIME $file" );
     is  ( $flm->describe_filename($file),  $descr, "Describe $file" );
@@ -46,8 +48,10 @@ while ( my ($file, $expect) = each %custom ) {
     my ($descr, $mime) = @$expect;
     $file = "t/samples/$file";
 
+    # OpenSUSE fix
     $mime=~s/;/;?/g;
-    like( $flm->checktype_filename($file), qr#$mime#,  "MIME $file" );
+    # text/x-foo to keep netbsd and older solaris installations happy
+    like( $flm->checktype_filename($file), qr#(?:$mime|text/x-foo)#,  "MIME $file" );
     is(   $flm->describe_filename($file),  $descr, "Describe $file" );
 
     my $data = do {
@@ -56,7 +60,8 @@ while ( my ($file, $expect) = each %custom ) {
         <$fh>;
     };
 
-    like( $flm->checktype_contents($data), qr#$mime#,  "MIME data $file" );
+    # text/x-foo to keep netbsd and older solaris installations happy
+    like( $flm->checktype_contents($data), qr#(?:$mime|text/x-foo)#,  "MIME data $file" );
     is(   $flm->describe_contents($data),  $descr, "Describe data $file" );
 }
 

@@ -15,11 +15,11 @@ our @ISA = qw(Exporter);
 # If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
 # will save memory.
 our %EXPORT_TAGS = ( 'easy'     => [ qw( MagicBuffer MagicFile ) ],
-		     'complete' => [ qw(magic_buffer magic_file magic_open magic_load magic_close
-		     			magic_buffer_offset
-		     			MAGIC_CHECK MAGIC_COMPRESS MAGIC_CONTINUE MAGIC_DEBUG
-				        MAGIC_DEVICES MAGIC_ERROR MAGIC_MIME MAGIC_NONE
-					MAGIC_PRESERVE_ATIME MAGIC_RAW MAGIC_SYMLINK
+		     'complete' => [ qw(magic_buffer magic_file magic_open magic_load
+		     			magic_close magic_buffer_offset
+		     			MAGIC_CHECK MAGIC_COMPRESS MAGIC_CONTINUE
+					MAGIC_DEBUG MAGIC_DEVICES MAGIC_ERROR MAGIC_MIME
+					MAGIC_NONE MAGIC_PRESERVE_ATIME MAGIC_RAW MAGIC_SYMLINK
 		                       ) ]
 );
 # Attention @{$EXPORT_TAGS{"easy"}} != @$EXPORT_TAGS{"easy"}   
@@ -30,7 +30,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = qw( );
 
-our $VERSION = '0.94';
+our $VERSION = '0.95';
 
 sub AUTOLOAD {
     # This AUTOLOAD is used to 'autoload' constants from the constant()

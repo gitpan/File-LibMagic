@@ -1,5 +1,8 @@
 Revision history for Perl extension File::LibMagic.
 
+0.95 May 2009
+      try to make test work in netbsd and solaris 9
+
 0.94 May 2009
       small error in t/6-oo.t
 
