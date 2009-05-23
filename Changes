@@ -1,5 +1,9 @@
 Revision history for Perl extension File::LibMagic.
 
+0.96 May 2009
+     Upgraded Devel::CheckLib
+     see bug 46044, 46295 in rt.cpan.org
+
 0.95 May 2009
       try to make test work in netbsd and solaris 9
 
