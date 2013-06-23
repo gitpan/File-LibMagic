@@ -1,0 +1,32 @@
+---
+abstract: 'Determine MIME types of data or files using libmagic'
+author:
+  - 'Andreas Fitzner'
+  - 'Michael Hendricks <michael@ndrix.org>'
+  - 'Dave Rolsky <autarch@urth.org>'
+build_requires:
+  Test::More: 0.88
+  lib: 0
+configure_requires:
+  ExtUtils::MakeMaker: 6.30
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.300035, CPAN::Meta::Converter version 2.120921'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: File-LibMagic
+requires:
+  Carp: 0
+  Exporter: 0
+  XSLoader: 0
+  base: 0
+  constant: 0
+  perl: 5.008
+  strict: 0
+  warnings: 0
+resources:
+  bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=File-LibMagic
+  repository: git://github.com/maxmind/File-LibMagic.git
+version: 0.97
+x_authority: cpan:DROLSKY

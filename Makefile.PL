@@ -1,79 +1,84 @@
-#! perl -w
+
+use strict;
+use warnings;
 
 use 5.008;
-use ExtUtils::MakeMaker;
-use Config qw/%Config/;
 
-use lib qw(inc);
+use ExtUtils::MakeMaker 6.30;
+
+use lib qw( inc );
 use Devel::CheckLib;
 
 check_lib_or_exit( lib => 'magic', header => 'magic.h' );
 
-WriteMakefile(
-    'NAME'		=> 'File::LibMagic',
-    'VERSION_FROM'	=> 'LibMagic.pm', # finds $VERSION
-    'PREREQ_PM'		=> { },
-    'ABSTRACT_FROM'     => 'LibMagic.pm', # retrieve abstract from module
-    'AUTHOR'            => 'Andreas Fitzner <andreas.fitzner@fv-berlin.de>',
-    'LIBS'		=> ['-lmagic -lz'], # e.g., '-lm'
-    'DEFINE'		=> '', # e.g., '-DHAVE_SOMETHING'
-    'INC'		=> '-I.', # e.g., '-I. -I/usr/include/other'
-	# Un-comment this if you add C files to link with later:
-    # 'OBJECT'		=> '$(O_FILES)', # link all the C files too
+
+
+
+my %WriteMakefileArgs = (
+  "ABSTRACT" => "Determine MIME types of data or files using libmagic",
+  "AUTHOR" => "Andreas Fitzner, Michael Hendricks <michael\@ndrix.org>, Dave Rolsky <autarch\@urth.org>",
+  "BUILD_REQUIRES" => {},
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
+  },
+  "DISTNAME" => "File-LibMagic",
+  "EXE_FILES" => [],
+  "INC" => "-I.",
+  "LIBS" => [
+    "-lmagic"
+  ],
+  "LICENSE" => "perl",
+  "NAME" => "File::LibMagic",
+  "PREREQ_PM" => {
+    "Carp" => 0,
+    "Exporter" => 0,
+    "XSLoader" => 0,
+    "base" => 0,
+    "constant" => 0,
+    "strict" => 0,
+    "warnings" => 0
+  },
+  "TEST_REQUIRES" => {
+    "Test::More" => "0.88",
+    "lib" => 0
+  },
+  "VERSION" => "0.97",
+  "test" => {
+    "TESTS" => "t/*.t"
+  }
 );
-if  (eval {require ExtUtils::Constant; 1}) {
-  # If you edit these definitions to change the constants used by this module,
-  # you will need to use the generated const-c.inc and const-xs.inc
-  # files to replace their "fallback" counterparts before distributing your
-  # changes.
 
-  my @names = (qw(MAGIC_CHECK MAGIC_COMPRESS MAGIC_CONTINUE MAGIC_DEBUG
-               MAGIC_DEVICES MAGIC_ERROR MAGIC_MIME MAGIC_NONE
-               MAGIC_PRESERVE_ATIME MAGIC_RAW MAGIC_SYMLINK));
 
-  ExtUtils::Constant::WriteConstants(
-                                     NAME         => 'File::LibMagic',
-                                     NAMES        => \@names,
-                                     DEFAULT_TYPE => 'IV',
-                                     C_FILE       => 'const-c.inc',
-                                     XS_FILE      => 'const-xs.inc',
-                                  );
-
-}
-else {
-  use File::Copy;
-  use File::Spec;
-  foreach my $file ('const-c.inc', 'const-xs.inc') {
-    my $fallback = File::Spec->catfile('fallback', $file);
-    copy ($fallback, $file) or die "Can't copy $fallback to $file: $!";
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
+  my $tr = delete $WriteMakefileArgs{TEST_REQUIRES};
+  my $br = $WriteMakefileArgs{BUILD_REQUIRES};
+  for my $mod ( keys %$tr ) {
+    if ( exists $br->{$mod} ) {
+      $br->{$mod} = $tr->{$mod} if $tr->{$mod} > $br->{$mod};
+    }
+    else {
+      $br->{$mod} = $tr->{$mod};
+    }
   }
 }
 
-# Michael does not like this test.
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
+  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
+  my $pp = $WriteMakefileArgs{PREREQ_PM};
+  for my $mod ( keys %$br ) {
+    if ( exists $pp->{$mod} ) {
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
+    }
+    else {
+      $pp->{$mod} = $br->{$mod};
+    }
+  }
+}
 
-#open(TestFile,">test-if-libmagic-exists.c") || die "$|";
-#print TestFile <<EOT;
-##include <magic.h>
-#
-#int main(void) {
-#	magic_t m;
-#
-#	m=magic_open(MAGIC_NONE);
-#
-#	return 0;
-#}
-#EOT
-#
-# my $exe = "test-if-libmagic-exists$Config{exe_ext}";
-# $cc_cmd .= "$Config{cc} $Config{ccflags} -I$Config{archlibexp}/CORE -o $exe";
-# my $rc = system("$cc_cmd $Config{ldflags} test-if-libmagic-exists.c -lmagic $Config{libs}");
-#
-# unlink("test-if-libmagic-exists.c", $exe, "test-if-libmagic-exists$Config{obj_ext}");
-#
-# if ($rc) {
-#        warn "Can't compile test program. Make sure you have the file-4.x package installed\n",
-#              "and libmagic is accessable (use ldconfig).\n";
-#        exit 1; # exit with error to the shell
-#  }
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
 
-exit 0;
+WriteMakefile(%WriteMakefileArgs);
+
+
+

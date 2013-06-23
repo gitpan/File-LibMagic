@@ -1,11 +1,15 @@
 use strict;
 use warnings;
-use Test::More tests => 14;
+
+use lib 't/lib';
+
+use Test::AnyOf;
+use Test::More 0.88;
 
 use File::LibMagic qw( :complete );
 
 # check for constants
-my $fail = 0;
+my $fail  = 0;
 my @names = qw(
     MAGIC_CHECK MAGIC_COMPRESS MAGIC_CONTINUE MAGIC_DEBUG MAGIC_DEVICES
     MAGIC_ERROR MAGIC_MIME MAGIC_NONE MAGIC_PRESERVE_ATIME MAGIC_RAW
@@ -22,17 +26,20 @@ foreach my $constname (@names) {
     }
 
 }
-ok( $fail == 0 , 'Constants' );
+ok( $fail == 0, 'Constants' );
 
 # try loading a non-standard magic file
 {
     my $handle = magic_open(MAGIC_NONE);
     magic_load( $handle, 't/samples/magic' );
     is( magic_buffer( $handle, "Hello World\n" ), 'ASCII text' );
-    is( magic_buffer( $handle, "Footastic\n" ), 'A foo file' );
+    is( magic_buffer( $handle, "Footastic\n" ),   'A foo file' );
 
-    is( magic_file( $handle, 't/samples/foo.txt' ), 'ASCII text'           );
-    is( magic_file( $handle, 't/samples/foo.c'   ), 'ASCII C program text' );
+    is( magic_file( $handle, 't/samples/foo.txt' ), 'ASCII text' );
+    is_any_of(
+        magic_file( $handle, 't/samples/foo.c' ),
+        [ 'ASCII text', 'ASCII C program text', 'C source, ASCII text' ]
+    );
     is( magic_file( $handle, 't/samples/foo.foo' ), 'A foo file' );
 
     magic_close($handle);
@@ -44,8 +51,11 @@ ok( $fail == 0 , 'Constants' );
     magic_load( $handle, q{} );
     is( magic_buffer( $handle, "Hello World\n" ), 'ASCII text' );
 
-    is( magic_file( $handle, 't/samples/foo.txt' ), 'ASCII text'           );
-    is( magic_file( $handle, 't/samples/foo.c'   ), 'ASCII C program text' );
+    is( magic_file( $handle, 't/samples/foo.txt' ), 'ASCII text' );
+    is_any_of(
+        magic_file( $handle, 't/samples/foo.c' ),
+        [ 'ASCII C program text', 'C source, ASCII text' ]
+    );
     is( magic_file( $handle, 't/samples/foo.foo' ), 'ASCII text' );
 
     magic_close($handle);
@@ -57,9 +67,14 @@ ok( $fail == 0 , 'Constants' );
     magic_load( $handle, undef );
     is( magic_buffer( $handle, "Hello World\n" ), 'ASCII text' );
 
-    is( magic_file( $handle, 't/samples/foo.txt' ), 'ASCII text'           );
-    is( magic_file( $handle, 't/samples/foo.c'   ), 'ASCII C program text' );
+    is( magic_file( $handle, 't/samples/foo.txt' ), 'ASCII text' );
+    is_any_of(
+        magic_file( $handle, 't/samples/foo.c' ),
+        [ 'ASCII C program text', 'C source, ASCII text' ]
+    );
     is( magic_file( $handle, 't/samples/foo.foo' ), 'ASCII text' );
 
     magic_close($handle);
 }
+
+done_testing();

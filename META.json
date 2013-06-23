@@ -1,0 +1,64 @@
+{
+   "abstract" : "Determine MIME types of data or files using libmagic",
+   "author" : [
+      "Andreas Fitzner",
+      "Michael Hendricks <michael@ndrix.org>",
+      "Dave Rolsky <autarch@urth.org>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Dist::Zilla version 4.300035, CPAN::Meta::Converter version 2.120921",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "File-LibMagic",
+   "prereqs" : {
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "6.30"
+         }
+      },
+      "develop" : {
+         "requires" : {
+            "Test::CPAN::Changes" : "0.19",
+            "Test::Pod" : "1.41"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Carp" : "0",
+            "Exporter" : "0",
+            "XSLoader" : "0",
+            "base" : "0",
+            "constant" : "0",
+            "perl" : "5.008",
+            "strict" : "0",
+            "warnings" : "0"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "Test::More" : "0.88",
+            "lib" : "0"
+         }
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "bugtracker" : {
+         "mailto" : "bug-file-libmagic@rt.cpan.org",
+         "web" : "http://rt.cpan.org/NoAuth/Bugs.html?Dist=File-LibMagic"
+      },
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/maxmind/File-LibMagic.git",
+         "web" : "https://github.com/maxmind/File-LibMagic"
+      }
+   },
+   "version" : "0.97",
+   "x_authority" : "cpan:DROLSKY"
+}
+
