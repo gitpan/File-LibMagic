@@ -21,6 +21,7 @@ example/test-libmagic.c
 inc/Devel/CheckLib.pm
 inc/MyMakeMaker.pm
 lib/File/LibMagic.pm
+ppport.h
 t/all-exports.t
 t/basic.t
 t/complete-interface-errors.t
