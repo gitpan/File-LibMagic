@@ -6,7 +6,7 @@
       "Dave Rolsky <autarch@urth.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300035, CPAN::Meta::Converter version 2.131560",
+   "generated_by" : "Dist::Zilla version 4.300036, CPAN::Meta::Converter version 2.131560",
    "license" : [
       "perl_5"
    ],
@@ -58,7 +58,7 @@
          "web" : "https://github.com/maxmind/File-LibMagic"
       }
    },
-   "version" : "0.98",
+   "version" : "0.99",
    "x_authority" : "cpan:DROLSKY"
 }
 

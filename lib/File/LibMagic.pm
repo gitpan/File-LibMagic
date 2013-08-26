@@ -1,6 +1,6 @@
 package File::LibMagic;
 {
-  $File::LibMagic::VERSION = '0.98';
+  $File::LibMagic::VERSION = '0.99';
 }
 BEGIN {
   $File::LibMagic::AUTHORITY = 'cpan:DROLSKY';
@@ -151,7 +151,7 @@ File::LibMagic - Determine MIME types of data or files using libmagic
 
 =head1 VERSION
 
-version 0.98
+version 0.99
 
 =head1 SYNOPSIS
 
