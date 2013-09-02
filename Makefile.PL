@@ -34,7 +34,6 @@ my %WriteMakefileArgs = (
     "Exporter" => 0,
     "XSLoader" => 0,
     "base" => 0,
-    "constant" => 0,
     "strict" => 0,
     "warnings" => 0
   },
@@ -42,7 +41,7 @@ my %WriteMakefileArgs = (
     "Test::More" => "0.88",
     "lib" => 0
   },
-  "VERSION" => "0.99",
+  "VERSION" => "1.00",
   "test" => {
     "TESTS" => "t/*.t"
   }

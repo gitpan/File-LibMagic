@@ -1,6 +1,6 @@
 package File::LibMagic;
 {
-  $File::LibMagic::VERSION = '0.99';
+  $File::LibMagic::VERSION = '1.00';
 }
 BEGIN {
   $File::LibMagic::AUTHORITY = 'cpan:DROLSKY';
@@ -70,70 +70,56 @@ $EXPORT_TAGS{"all"}
 
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
-use constant _MAGIC_FILE      => 0;
-use constant _MIME_HANDLE     => 1;
-use constant _DESCRIBE_HANDLE => 2;
-
 sub new {
     my ( $class, $magic_file ) = @_;
+    return bless { magic_file => $magic_file }, $class;
+}
 
-    return bless [ $magic_file || q{} ], $class;
+sub checktype_contents {
+    my ( $self, $data ) = @_;
+    return magic_buffer( $self->_mime_handle(), $data );
+}
+
+sub checktype_filename {
+    my ( $self, $filename ) = @_;
+    return magic_file( $self->_mime_handle(), $filename );
+}
+
+sub describe_contents {
+    my ( $self, $data ) = @_;
+    return magic_buffer( $self->_describe_handle(), $data );
+}
+
+sub describe_filename {
+    my ( $self, $filename ) = @_;
+    return magic_file( $self->_describe_handle(), $filename );
 }
 
 sub _mime_handle {
     my ($self) = @_;
 
-    my $m = magic_open( MAGIC_MIME() );
-    magic_load( $m, $self->[_MAGIC_FILE] );
-
-    return $m;
+    return $self->{magic_handle} ||= do {
+        my $m = magic_open( MAGIC_MIME() );
+        magic_load( $m, $self->{magic_file} );
+        $m;
+    };
 }
 
-sub _descr_handle {
+sub _describe_handle {
     my ($self) = @_;
 
-    my $m = magic_open( MAGIC_NONE() );
-    magic_load( $m, $self->[_MAGIC_FILE] );
-
-    return $m;
-}
-
-sub checktype_contents {
-    my ( $self, $data ) = @_;
-
-    my $m = $self->[_MIME_HANDLE] ||= $self->_mime_handle();
-    return magic_buffer( $m, $data );
-}
-
-sub checktype_filename {
-    my ( $self, $filename ) = @_;
-
-    my $m = $self->[_MIME_HANDLE] ||= $self->_mime_handle();
-
-    return magic_file( $m, $filename );
-}
-
-sub describe_contents {
-    my ( $self, $data ) = @_;
-
-    my $m = $self->[_DESCRIBE_HANDLE] ||= $self->_descr_handle();
-
-    return magic_buffer( $m, $data );
-}
-
-sub describe_filename {
-    my ( $self, $filename ) = @_;
-
-    my $m = $self->[_DESCRIBE_HANDLE] ||= $self->_descr_handle();
-
-    return magic_file( $m, $filename );
+    return $self->{describe_handle} ||= do {
+        my $m = magic_open( MAGIC_NONE() );
+        magic_load( $m, $self->{magic_file} );
+        $m;
+    };
 }
 
 sub DESTROY {
     my ($self) = @_;
 
-    for ( _MIME_HANDLE, _DESCRIBE_HANDLE ) {
-        magic_close( $self->[$_] ) if $self->[$_];
+    for my $key (qw( mime_handle describe_handle )) {
+        magic_close( $self->{$key} ) if defined $self->{$key};
     }
 }
 
@@ -151,7 +137,7 @@ File::LibMagic - Determine MIME types of data or files using libmagic
 
 =head1 VERSION
 
-version 0.99
+version 1.00
 
 =head1 SYNOPSIS
 
@@ -196,7 +182,8 @@ magic files at all.
 
 =head2 $magic->checktype_contents($data)
 
-Returns the MIME type of the data given as the first argument.
+Returns the MIME type of the data given as the first argument. The data can be
+passed as a plain scalar or as a reference to a scalar.
 
 This is the same value as would be returned by the C<file> command with the
 C<-i> switch.
@@ -211,6 +198,7 @@ C<-i> switch.
 =head2 $magic->describe_contents($data)
 
 Returns a description (as a string) of the data given as the first argument.
+The data can be passed as a plain scalar or as a reference to a scalar.
 
 This is the same value as would be returned by the C<file> command with no
 switches.
