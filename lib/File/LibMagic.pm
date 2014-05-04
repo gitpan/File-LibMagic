@@ -1,11 +1,5 @@
 package File::LibMagic;
-{
-  $File::LibMagic::VERSION = '1.00';
-}
-BEGIN {
-  $File::LibMagic::AUTHORITY = 'cpan:DROLSKY';
-}
-
+$File::LibMagic::VERSION = '1.01';
 use 5.008;
 
 use strict;
@@ -98,7 +92,7 @@ sub describe_filename {
 sub _mime_handle {
     my ($self) = @_;
 
-    return $self->{magic_handle} ||= do {
+    return $self->{mime_handle} ||= do {
         my $m = magic_open( MAGIC_MIME() );
         magic_load( $m, $self->{magic_file} );
         $m;
@@ -137,7 +131,7 @@ File::LibMagic - Determine MIME types of data or files using libmagic
 
 =head1 VERSION
 
-version 1.00
+version 1.01
 
 =head1 SYNOPSIS
 
@@ -242,7 +236,7 @@ Returns the description of a file, just like the C<describe_filename> method.
 
 This interface is exported by:
 
-  use File::LibMagic ':easy';
+  use File::LibMagic ':complete';
 
 This interface exports several subroutines:
 
@@ -280,7 +274,7 @@ Closes the magic handle.
 
 =head1 EXCEPTIONS
 
-This module can throw an exception if you system runs out of memory when
+This module can throw an exception if your system runs out of memory when
 trying to call C<magic_open> internally.
 
 =head1 SUPPORT
@@ -335,7 +329,7 @@ Dave Rolsky <autarch@urth.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Andreas Fitzner, Michael Hendricks, and Dave Rolsky.
+This software is copyright (c) 2014 by Andreas Fitzner, Michael Hendricks, and Dave Rolsky.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
