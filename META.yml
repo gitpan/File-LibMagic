@@ -5,29 +5,29 @@ author:
   - 'Michael Hendricks <michael@ndrix.org>'
   - 'Dave Rolsky <autarch@urth.org>'
 build_requires:
-  Test::More: 0.88
-  lib: 0
+  Test::More: '0.88'
+  lib: '0'
 configure_requires:
-  ExtUtils::MakeMaker: 6.30
+  ExtUtils::MakeMaker: '6.30'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.015, CPAN::Meta::Converter version 2.120921'
+generated_by: 'Dist::Zilla version 5.019, CPAN::Meta::Converter version 2.131560'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+  version: '1.4'
 name: File-LibMagic
 requires:
-  Carp: 0
-  Exporter: 0
-  XSLoader: 0
-  base: 0
-  perl: 5.008
-  strict: 0
-  warnings: 0
+  Carp: '0'
+  Exporter: '0'
+  XSLoader: '0'
+  base: '0'
+  perl: '5.008'
+  strict: '0'
+  warnings: '0'
 resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=File-LibMagic
-  repository: git://git.urth.org/File-LibMagic.git
-version: 1.01
+  repository: git://github.com/autarch/File-LibMagic.git
+version: '1.02'
 x_authority: cpan:DROLSKY
 x_contributors:
   - 'Olaf Alders <olaf@wundersolutions.com>'

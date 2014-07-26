@@ -1,5 +1,5 @@
 package File::LibMagic;
-$File::LibMagic::VERSION = '1.01';
+$File::LibMagic::VERSION = '1.02';
 use 5.008;
 
 use strict;
@@ -125,13 +125,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 File::LibMagic - Determine MIME types of data or files using libmagic
 
 =head1 VERSION
 
-version 1.01
+version 1.02
 
 =head1 SYNOPSIS
 
@@ -149,8 +151,19 @@ version 1.01
 
 =head1 DESCRIPTION
 
-The C<File::LibMagic> is a simple perl interface to libmagic from
-the file package (version 4.x or 5.x).
+The C<File::LibMagic> is a simple perl interface to libmagic from the file
+package (version 4.x or 5.x). You will need both the library (F<libmagic.so>)
+and the header file (F<magic.h>) to build this Perl module.
+
+=head2 Installing libmagic
+
+On Debian/Ubuntu run:
+
+    sudo apt-get install libmagic-dev
+
+On Mac you can use homebrew (http://brew.sh/):
+
+    brew install libmagic
 
 =head1 API
 

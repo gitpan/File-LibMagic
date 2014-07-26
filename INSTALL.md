@@ -1,7 +1,18 @@
+# Installing File-LibMagic
 
-This is the Perl distribution File-LibMagic.
+Installing File-LibMagic requires that you have the *libmagic.so* library and
+the *magic.h* header file installed. Once those are installed, this module is
+installed like any other Perl distributions.
 
-Installing File-LibMagic is straightforward.
+## Installing libmagic
+
+On Debian/Ubuntu run:
+
+    sudo apt-get install libmagic-dev
+
+On Mac you can use homebrew (http://brew.sh/):
+
+    brew install libmagic
 
 ## Installation with cpanm
 

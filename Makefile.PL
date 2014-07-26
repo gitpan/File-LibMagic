@@ -8,9 +8,18 @@ use 5.008;
 use ExtUtils::MakeMaker 6.30;
 
 use lib qw( inc );
-use Devel::CheckLib;
+use Config::AutoConf;
 
-check_lib_or_exit( lib => 'magic', header => 'magic.h' );
+unless ( Config::AutoConf->check_header('magic.h')
+    && Config::AutoConf->check_lib( 'magic', 'magic_open' ) ) {
+    warn <<'EOF';
+
+  This module requires the libmagic.so library and magic.h header. See
+  INSTALL.md for more details on installing these.
+
+EOF
+    exit 1;
+}
 
 
 
@@ -18,7 +27,6 @@ check_lib_or_exit( lib => 'magic', header => 'magic.h' );
 my %WriteMakefileArgs = (
   "ABSTRACT" => "Determine MIME types of data or files using libmagic",
   "AUTHOR" => "Andreas Fitzner, Michael Hendricks <michael\@ndrix.org>, Dave Rolsky <autarch\@urth.org>",
-  "BUILD_REQUIRES" => {},
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => "6.30"
   },
@@ -42,7 +50,7 @@ my %WriteMakefileArgs = (
     "Test::More" => "0.88",
     "lib" => 0
   },
-  "VERSION" => "1.01",
+  "VERSION" => "1.02",
   "test" => {
     "TESTS" => "t/*.t"
   }

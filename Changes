@@ -1,3 +1,16 @@
+1.02     2014-07-26
+
+- Added instructions for installing libmagic.so and magic.h to the POD and
+  INSTALL.md file. Requested by Gabor Szabo. RT #97391.
+
+- Switched from using Devel::CheckLib to Config::AutoConf with the hope that
+  the latter will work with more compilers. Requested by Jens Rehsack. RT
+  #46543.
+
+- Switched the primary git repo to github
+  (https://github.com/autarch/File-LibMagic).
+
+
 1.01     2014-05-04
 
 - Fixed repository metadata. Reported by Jens Rehsack. RT #89200.
