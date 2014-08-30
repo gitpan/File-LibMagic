@@ -1,5 +1,7 @@
 package File::LibMagic;
-$File::LibMagic::VERSION = '1.02';
+# git description: v1.02-6-g41e5fce
+$File::LibMagic::VERSION = '1.03';
+
 use 5.008;
 
 use strict;
@@ -133,7 +135,7 @@ File::LibMagic - Determine MIME types of data or files using libmagic
 
 =head1 VERSION
 
-version 1.02
+version 1.03
 
 =head1 SYNOPSIS
 
@@ -164,6 +166,17 @@ On Debian/Ubuntu run:
 On Mac you can use homebrew (http://brew.sh/):
 
     brew install libmagic
+
+=head2 Specifying lib and/or include directories
+
+On some systems, you may need to pass additional lib and include directories
+to the Makefile.PL. You can do this with the `--lib` and `--include`
+parameters:
+
+    perl Makefile.PL --lib /usr/local/include --include /usr/local/include
+
+You can pass these parameters multiple times to specify more than one
+location.
 
 =head1 API
 

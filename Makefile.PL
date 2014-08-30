@@ -5,20 +5,39 @@ use warnings;
 
 use 5.008;
 
-use ExtUtils::MakeMaker 6.30;
+use ExtUtils::MakeMaker ;
 
 use lib qw( inc );
 use Config::AutoConf;
+use Getopt::Long;
 
-unless ( Config::AutoConf->check_header('magic.h')
-    && Config::AutoConf->check_lib( 'magic', 'magic_open' ) ) {
+my %ac_args;
+my @libs;
+my @includes;
+GetOptions(
+    'lib:s@'     => \@libs,
+    'include:s@' => \@includes,
+);
+
+@libs = map { '-L' . $_ } @libs;
+$ac_args{extra_link_flags} = \@libs
+    if @libs;
+
+@includes = map { '-I' . $_ } @includes;
+$ac_args{extra_include_flags} = \@includes
+    if @includes;
+
+my $ac = Config::AutoConf->new(%ac_args);
+
+unless ( $ac->check_header('magic.h')
+    && $ac->check_lib( 'magic', 'magic_open' ) ) {
     warn <<'EOF';
 
   This module requires the libmagic.so library and magic.h header. See
   INSTALL.md for more details on installing these.
 
 EOF
-    exit 1;
+    exit 0;
 }
 
 
@@ -28,7 +47,7 @@ my %WriteMakefileArgs = (
   "ABSTRACT" => "Determine MIME types of data or files using libmagic",
   "AUTHOR" => "Andreas Fitzner, Michael Hendricks <michael\@ndrix.org>, Dave Rolsky <autarch\@urth.org>",
   "CONFIGURE_REQUIRES" => {
-    "ExtUtils::MakeMaker" => "6.30"
+    "ExtUtils::MakeMaker" => 0
   },
   "DISTNAME" => "File-LibMagic",
   "EXE_FILES" => [],
@@ -47,10 +66,14 @@ my %WriteMakefileArgs = (
     "warnings" => 0
   },
   "TEST_REQUIRES" => {
+    "ExtUtils::MakeMaker" => 0,
+    "File::Spec" => 0,
+    "IO::Handle" => 0,
+    "IPC::Open3" => 0,
     "Test::More" => "0.88",
     "lib" => 0
   },
-  "VERSION" => "1.02",
+  "VERSION" => "1.03",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -60,6 +83,10 @@ my %WriteMakefileArgs = (
 my %FallbackPrereqs = (
   "Carp" => 0,
   "Exporter" => 0,
+  "ExtUtils::MakeMaker" => 0,
+  "File::Spec" => 0,
+  "IO::Handle" => 0,
+  "IPC::Open3" => 0,
   "Test::More" => "0.88",
   "XSLoader" => 0,
   "base" => 0,
@@ -77,6 +104,10 @@ unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
 
 delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
   unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
+
+unshift @{ $WriteMakefileArgs{LIBS} }, @libs;
+$WriteMakefileArgs{INC} = join q{ }, @includes, $WriteMakefileArgs{INC};
+
 
 WriteMakefile(%WriteMakefileArgs);
 
