@@ -26,6 +26,8 @@ API
 APIS
 CPAN
 OO
+ascii
+featureful
 freedesktop
 homebrew
 libmagic

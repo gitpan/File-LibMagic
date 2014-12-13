@@ -5,13 +5,12 @@ use warnings;
 
 use 5.008;
 
-use ExtUtils::MakeMaker ;
+use ExtUtils::MakeMaker;
 
 use lib qw( inc );
 use Config::AutoConf;
 use Getopt::Long;
 
-my %ac_args;
 my @libs;
 my @includes;
 GetOptions(
@@ -20,14 +19,13 @@ GetOptions(
 );
 
 @libs = map { '-L' . $_ } @libs;
-$ac_args{extra_link_flags} = \@libs
-    if @libs;
 
 @includes = map { '-I' . $_ } @includes;
-$ac_args{extra_include_flags} = \@includes
-    if @includes;
 
-my $ac = Config::AutoConf->new(%ac_args);
+my $ac = Config::AutoConf->new(
+    extra_link_flags    => \@libs,
+    extra_include_flags => \@includes,
+);
 
 unless ( $ac->check_header('magic.h')
     && $ac->check_lib( 'magic', 'magic_open' ) ) {
@@ -46,17 +44,25 @@ EOF
 my %WriteMakefileArgs = (
   "ABSTRACT" => "Determine MIME types of data or files using libmagic",
   "AUTHOR" => "Andreas Fitzner, Michael Hendricks <michael\@ndrix.org>, Dave Rolsky <autarch\@urth.org>",
+  "C" => [
+    "lib/File/LibMagic.c"
+  ],
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => 0
   },
   "DISTNAME" => "File-LibMagic",
   "EXE_FILES" => [],
-  "INC" => "-I.",
+  "INC" => "-I. -Ic",
+  "LDFROM" => "LibMagic\$(OBJ_EXT)",
   "LIBS" => [
     "-lmagic"
   ],
   "LICENSE" => "perl",
+  "MIN_PERL_VERSION" => "5.008",
   "NAME" => "File::LibMagic",
+  "OBJECT" => [
+    "lib/File/LibMagic\$(OBJ_EXT)"
+  ],
   "PREREQ_PM" => {
     "Carp" => 0,
     "Exporter" => 0,
@@ -73,7 +79,10 @@ my %WriteMakefileArgs = (
     "Test::More" => "0.88",
     "lib" => 0
   },
-  "VERSION" => "1.03",
+  "VERSION_FROM" => "lib/File/LibMagic.pm",
+  "XS" => {
+    "lib/File/LibMagic.xs" => "lib/File/LibMagic.c"
+  },
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -107,7 +116,6 @@ delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
 
 unshift @{ $WriteMakefileArgs{LIBS} }, @libs;
 $WriteMakefileArgs{INC} = join q{ }, @includes, $WriteMakefileArgs{INC};
-
 
 WriteMakefile(%WriteMakefileArgs);
 
