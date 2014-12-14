@@ -9,7 +9,7 @@ use Carp;
 use Exporter;
 use XSLoader;
 
-our $VERSION = '1.06'; # TRIAL
+our $VERSION = '1.07';
 
 XSLoader::load( __PACKAGE__, $VERSION );
 
@@ -105,9 +105,7 @@ sub _mime_with_encoding {
 sub DESTROY {
     my ($self) = @_;
 
-    for my $key (qw( mime_handle describe_handle )) {
-        magic_close( $self->{$key} ) if defined $self->{$key};
-    }
+    magic_close( $self->{magic} ) if defined $self->{magic};
 }
 
 # Old OO API
@@ -157,7 +155,7 @@ File::LibMagic - Determine MIME types of data or files using libmagic
 
 =head1 VERSION
 
-version 1.06
+version 1.07
 
 =head1 SYNOPSIS
 

@@ -23,7 +23,7 @@ name: File-LibMagic
 provides:
   File::LibMagic:
     file: lib/File/LibMagic.pm
-    version: '1.06'
+    version: '1.07'
 requires:
   Carp: '0'
   Exporter: '0'
@@ -36,7 +36,7 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=File::LibMagic
   homepage: http://metacpan.org/release/File::LibMagic
   repository: git://github.com/autarch/File-LibMagic.git
-version: '1.06'
+version: '1.07'
 x_Dist_Zilla:
   perl:
     version: '5.016003'
@@ -404,7 +404,7 @@ x_Dist_Zilla:
         Dist::Zilla::Plugin::Git::Tag:
           branch: ~
           signed: 0
-          tag: v1.06
+          tag: v1.07
           tag_format: v%v
           tag_message: v%v
           time_zone: local
@@ -507,7 +507,7 @@ x_Dist_Zilla:
   zilla:
     class: Dist::Zilla::Dist::Builder
     config:
-      is_trial: '1'
+      is_trial: '0'
     version: '5.028'
 x_authority: cpan:DROLSKY
 x_contributors:
