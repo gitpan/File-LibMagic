@@ -62,7 +62,7 @@
    "provides" : {
       "File::LibMagic" : {
          "file" : "lib/File/LibMagic.pm",
-         "version" : "1.05"
+         "version" : "1.06"
       }
    },
    "release_status" : "testing",
@@ -78,7 +78,7 @@
          "web" : "https://github.com/autarch/File-LibMagic"
       }
    },
-   "version" : "1.05",
+   "version" : "1.06",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.016003"
@@ -550,7 +550,7 @@
                "Dist::Zilla::Plugin::Git::Tag" : {
                   "branch" : null,
                   "signed" : 0,
-                  "tag" : "v1.05",
+                  "tag" : "v1.06",
                   "tag_format" : "v%v",
                   "tag_message" : "v%v",
                   "time_zone" : "local"
