@@ -39,7 +39,8 @@ my @files = (
     't/samples/foo.foo',
     't/samples/foo.txt',
     't/samples/magic',
-    't/samples/magic.mime'
+    't/samples/magic.mime',
+    't/version.t'
 );
 
 notabs_ok($_) foreach @files;

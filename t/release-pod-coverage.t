@@ -37,7 +37,8 @@ my %trustme = (
              'File::LibMagic' => [
                                  qr/^MAGIC_/,
                                  qr/^constant$/,
-                                 qr/^magic_buffer_offset/
+                                 qr/^magic_buffer_offset$/,
+                                 qr/^magic_version$/
                                ]
            );
 
