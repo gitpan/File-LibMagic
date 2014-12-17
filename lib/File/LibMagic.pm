@@ -9,7 +9,7 @@ use Carp;
 use Exporter;
 use XSLoader;
 
-our $VERSION = '1.07';
+our $VERSION = '1.08';
 
 XSLoader::load( __PACKAGE__, $VERSION );
 
@@ -155,7 +155,7 @@ File::LibMagic - Determine MIME types of data or files using libmagic
 
 =head1 VERSION
 
-version 1.07
+version 1.08
 
 =head1 SYNOPSIS
 
