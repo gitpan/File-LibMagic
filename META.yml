@@ -23,7 +23,7 @@ name: File-LibMagic
 provides:
   File::LibMagic:
     file: lib/File/LibMagic.pm
-    version: '1.08'
+    version: '1.09'
 requires:
   Carp: '0'
   Exporter: '0'
@@ -36,7 +36,7 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=File::LibMagic
   homepage: http://metacpan.org/release/File::LibMagic
   repository: git://github.com/autarch/File-LibMagic.git
-version: '1.08'
+version: '1.09'
 x_Dist_Zilla:
   perl:
     version: '5.016003'
@@ -54,7 +54,7 @@ x_Dist_Zilla:
       name: '@DROLSKY/CopyFilesFromBuild'
       version: '0.103510'
     -
-      class: Dist::Zilla::Plugin::GatherDir
+      class: Dist::Zilla::Plugin::Git::GatherDir
       config:
         Dist::Zilla::Plugin::GatherDir:
           exclude_filename:
@@ -69,8 +69,12 @@ x_Dist_Zilla:
           prefix: ''
           prune_directory: []
           root: .
-      name: '@DROLSKY/GatherDir'
-      version: '5.029'
+        Dist::Zilla::Plugin::Git::GatherDir:
+          include_untracked: '0'
+        Dist::Zilla::Role::Git::Repo:
+          repo_root: .
+      name: '@DROLSKY/Git::GatherDir'
+      version: '2.028'
     -
       class: Dist::Zilla::Plugin::GitHub::Meta
       name: '@DROLSKY/GitHub::Meta'
@@ -144,10 +148,6 @@ x_Dist_Zilla:
       name: '@DROLSKY/Test::ReportPrereqs'
       version: '0.019'
     -
-      class: Dist::Zilla::Plugin::PruneCruft
-      name: '@DROLSKY/PruneCruft'
-      version: '5.029'
-    -
       class: Dist::Zilla::Plugin::ManifestSkip
       name: '@DROLSKY/ManifestSkip'
       version: '5.029'
@@ -198,11 +198,11 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::DROLSKY::Contributors
       name: '@DROLSKY/DROLSKY::Contributors'
-      version: '0.26'
+      version: '0.27'
     -
       class: Dist::Zilla::Plugin::DROLSKY::License
       name: '@DROLSKY/DROLSKY::License'
-      version: '0.26'
+      version: '0.27'
     -
       class: Dist::Zilla::Plugin::Git::CheckFor::CorrectBranch
       config:
@@ -404,7 +404,7 @@ x_Dist_Zilla:
         Dist::Zilla::Plugin::Git::Tag:
           branch: ~
           signed: 0
-          tag: v1.08
+          tag: v1.09
           tag_format: v%v
           tag_message: v%v
           time_zone: local
